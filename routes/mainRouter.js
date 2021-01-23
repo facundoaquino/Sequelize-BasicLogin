@@ -1,9 +1,9 @@
 const express = require('express')
 const router = express.Router()
-const sequelize = require('sequelize')
+const db = require('./../database/models')
+const sequelize = db.sequelize
 const Op = sequelize.Op
 
-const db = require('./../database/models')
 
 /*---------------------- hashing password ---------------------*/
 
@@ -88,16 +88,9 @@ router.get('/logout',(req,res)=>{
 
 router.get('/test', async (req, res) => {
 	
-	const posts = await db.post.findAll({
-		attributes: [ 
-			[sequelize.fn('DATE_FORMAT', sequelize.col('created_at'), '%y'), 'date']
-
-		],	
-		 
-		 
-	})
-
-	res.send(posts)
+	const users = await sequelize.query("select name , post from users inner join posts on posts.user_id=users.id order by posts.created_at desc",{ type: sequelize.QueryTypes.SELECT })
+	 console.log(users);
+	res.send( users)
 })
 
 module.exports = router
