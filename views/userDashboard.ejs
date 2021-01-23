@@ -40,10 +40,10 @@
 		</form>
 
 		<h2 class="text-center">My posts</h2>
-		<div class="cardsContainer d-flex flex-wrap">
+		<div class="cardsContainer d-flex flex-wrap justify-content-center">
 			<% posts.forEach((post,inx)=>{ %>
 
-			<div class="card text-dark bg-warning m-5" style="max-width: 18rem">
+			<div class="card text-dark bg-warning m-5" style="width:350px">
 				<div class="card-header"><i class="far fa-clipboard"></i> Post <%=inx+1%> </div>
 				<div class="card-body">
 					<h5 class="card-title"><%=post.dataValues.date%></h5>
@@ -53,5 +53,9 @@
 
 			<% }) %>
 		</div>
+
+		<button id="getAllPosts" class="mx-auto btn btn-primary	d-block " style="width: 30%;">All users posts</button>
+
+		<script src="js/home.js"></script>
 	</body>
 </html>

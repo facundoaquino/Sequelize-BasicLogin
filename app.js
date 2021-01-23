@@ -7,11 +7,13 @@ const session = require('express-session');
 /*---------------------- global middleware ---------------------*/
 const authMiddleware = require('./middlewares/authmiddleware');
 
+
+
 //  defined port
 const port = process.env.PORT || 3000
 
 
-
+app.use(express.static('public'))
 app.use(session({secret:'TheSecretSession',resave:false,saveUninitialized:true}))
 app.use(authMiddleware)
 app.use(express.json())

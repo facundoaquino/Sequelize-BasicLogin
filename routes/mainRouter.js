@@ -84,11 +84,24 @@ router.get('/logout',(req,res)=>{
 	})
 })
 
+/*---------------------- api get all posts users ---------------------*/
+
+router.get('/getAll',async(req,res)=>{
+
+	
+
+	const posts = await sequelize.query('select name ,lastname, post   from users inner join posts on posts.user_id=users.id order by posts.created_at desc')
+
+
+	res.send(posts[0])
+
+})
+
 /*---------------------- test route ---------------------*/
 
 router.get('/test', async (req, res) => {
 	
-	const users = await sequelize.query("select name , post from users inner join posts on posts.user_id=users.id order by posts.created_at desc",{ type: sequelize.QueryTypes.SELECT })
+	const users = await sequelize.query("select name,lastname , post from users inner join posts on posts.user_id=users.id order by posts.created_at desc",{ type: sequelize.QueryTypes.SELECT })
 	 console.log(users);
 	res.send( users)
 })
