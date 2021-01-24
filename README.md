@@ -8,6 +8,13 @@
 
 # Basic sequelize queries
 
+ 
+
+ 
+ 
+ 
+
+
 ```javascript
 //Get all users
 
@@ -145,6 +152,31 @@ router.get('/test', async (req, res) => {
 	 
 	res.send({users})
 })
+
+/*Create , delete or update multiple instances with model.bulkCreate*/
+
+// INSERT INTO `users` (`name`,`id`,`lastname`,`password`,`email`) VALUES ('pepe',NULL,'aguirre','123456','pepeaguirre@gmail.com'),('maria',NULL,'aguirre','123456','maiaaquirre@gmail.com');
+
+router.get('/test', async (req, res) => {
+	
+	const users = await db.user.bulkCreate([
+		{
+			name:'pepe',
+			lastname:'aguirre',
+			email:'pepeaguirre@gmail.com',
+			password:'123456'
+		},
+		{
+			name:'maria',
+			lastname:'aguirre',
+			email:'maiaaquirre@gmail.com',
+			password:'123456'
+		}
+	])
+	res.send( users)
+})
+
+
 ```
 
 
@@ -161,6 +193,82 @@ router.get('/test', async (req, res) => {
 })
 
 ```
+
+## Update 
+
+```javascript
+
+router.get('/test', async (req, res) => {
+	const users = await db.user.update(
+		{
+			email: 'aguirrin@gmail.com',
+			name:'Pedro'
+		},
+		{
+			where: {
+				id: 20,
+			},
+		}
+	)
+	res.send(users)
+})
+
+```
+
+## Delete  
+
+
+```javascript
+//DELETE FROM `users` WHERE `id` = 20
+
+router.get('/test', async (req, res) => {
+	const users = await db.user.destroy({
+		where:{
+			id:20
+		}
+	})
+	
+	console.log(users);
+	 
+})
+
+
+```
+
+## Associations  
+
+
+```javascript
+//belongsTo
+
+  Post.associate =  function(models){
+        Post.belongsTo(models.user,{
+            as:'users',
+            foreignKey:'user_id'
+        })
+	}
+	// hasMany
+	
+	  User.associate = function(models){
+        User.hasMany(models.post,{
+            as:'posteos',
+            foreignKey:'user_id'
+        })
+    }
+ 
+//SELECT `user`.`name`, `user`.`id`, `user`.`lastname`, `user`.`password`, `user`.`email`, `posteos`.`id` AS `posteos.id`, `posteos`.`post` AS `posteos.post`, `posteos`.`user_id` AS `posteos.user_id`, `posteos`.`created_at` AS `posteos.created_at` FROM `users` AS `user` LEFT OUTER JOIN `posts` AS `posteos` ON `user`.`id` = `posteos`.`user_id`;
+router.get('/test', async (req, res) => {
+	const users = await db.user.findAll({
+		include:[{association:'posteos'}]
+	})
+	
+	console.log(users);
+	 res.send(users)
+})
+
+
+```
+
 
 
 [database/config/dataBase.sql]:<https://github.com/facundoaquino/Sequelize-BasicLogin/blob/master/database/config/dataBase.sql>

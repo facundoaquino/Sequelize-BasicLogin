@@ -27,5 +27,13 @@ module.exports= (sequelize,dataTypes)=>{
          
     })
 
+
+    User.associate = function(models){
+        User.hasMany(models.post,{
+            as:'posteos',
+            foreignKey:'user_id'
+        })
+    }
+
     return User
 }

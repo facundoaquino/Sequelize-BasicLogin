@@ -4,7 +4,6 @@ const db = require('./../database/models')
 const sequelize = db.sequelize
 const Op = sequelize.Op
 
-
 /*---------------------- hashing password ---------------------*/
 
 const bcrypt = require('bcryptjs')
@@ -55,55 +54,49 @@ router.post('/login', isLoged, async (req, res) => {
 })
 
 router.get('/home', userLoged, async (req, res) => {
-	 
-
 	const posts = await db.post.findAll({
-		attributes: ['post', 
-		[sequelize.fn('DATE_FORMAT', sequelize.col('created_at'), '%d-%m-%Y %T'), 'date']],	
-		 
+		attributes: ['post', [sequelize.fn('DATE_FORMAT', sequelize.col('created_at'), '%d-%m-%Y %T'), 'date']],
+
 		where: {
 			user_id: req.session.user.id,
 		},
 	})
- 
-	 
- 
-	res.render('userDashboard', { posts:posts  })
+
+	res.render('userDashboard', { posts: posts })
 })
 
 router.post('/post', async (req, res) => {
 	await db.post.create({ id: null, post: req.body.post, user_id: res.locals.userLoged.id })
-	 
+
 	res.redirect('/home')
 })
 /*---------------------- logout ---------------------*/
 
-router.get('/logout',(req,res)=>{
-	req.session.destroy(err=>{
+router.get('/logout', (req, res) => {
+	req.session.destroy((err) => {
 		res.redirect('/')
 	})
 })
 
 /*---------------------- api get all posts users ---------------------*/
 
-router.get('/getAll',async(req,res)=>{
-
-	
-
-	const posts = await sequelize.query('select name ,lastname, post   from users inner join posts on posts.user_id=users.id order by posts.created_at desc')
-
+router.get('/getAll', async (req, res) => {
+	const posts = await sequelize.query(
+		'select name ,lastname, post   from users inner join posts on posts.user_id=users.id order by posts.created_at desc'
+	)
 
 	res.send(posts[0])
-
 })
 
 /*---------------------- test route ---------------------*/
 
 router.get('/test', async (req, res) => {
+	const users = await db.user.findAll({
+		include:[{association:'posteos'}]
+	})
 	
-	const users = await sequelize.query("select name,lastname , post from users inner join posts on posts.user_id=users.id order by posts.created_at desc",{ type: sequelize.QueryTypes.SELECT })
-	 console.log(users);
-	res.send( users)
+	console.log(users);
+	 res.send(users)
 })
 
 module.exports = router
