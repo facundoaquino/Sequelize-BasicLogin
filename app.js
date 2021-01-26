@@ -1,7 +1,7 @@
 const express = require('express');
 const mainRouter = require('./routes/mainRouter');
 const app = express()
-
+const MemoryStore =require('memorystore')
 const session = require('express-session');
 
 /*---------------------- global middleware ---------------------*/
@@ -14,7 +14,8 @@ const port = process.env.PORT || 3000
 
 
 app.use(express.static('public'))
-app.use(session({secret:'TheSecretSession',resave:false,saveUninitialized:true}))
+// app.use(session({secret:'TheSecretSession',resave:false,saveUninitialized:true}))
+app.use(session({secret:'TheSecretSession',resave:false,saveUninitialized:true ,store: new MemoryStore()}))
 app.use(authMiddleware)
 app.use(express.json())
 app.use(express.urlencoded({extended:true}))
