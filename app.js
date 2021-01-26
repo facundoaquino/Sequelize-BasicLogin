@@ -13,7 +13,7 @@ const authMiddleware = require('./middlewares/authmiddleware');
 
 
 var options = {
-	host: 'localhost',
+	host: 'us-cdbr-east-03.cleardb.com',
 	port: 3306,
 	user: 'b13b87e577c859',
 	password: 'pase9b67217sword',
