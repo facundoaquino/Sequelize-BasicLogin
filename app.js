@@ -16,7 +16,7 @@ var options = {
 	host: 'us-cdbr-east-03.cleardb.com',
 	port: 3306,
 	user: 'b13b87e577c859',
-	password: 'pase9b67217sword',
+	password: 'e9b67217',
 	database: 'heroku_c4c796f2d40c24a'
 };
 
