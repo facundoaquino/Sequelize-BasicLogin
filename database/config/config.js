@@ -19,6 +19,8 @@ module.exports={
     "password": "e9b67217",
     "database": "heroku_c4c796f2d40c24a",
     "host": "us-cdbr-east-03.cleardb.com",
-    "dialect": "mysql"
+    "dialect": "mysql",
+   "timezone":"-03:00"
+
   }
 }

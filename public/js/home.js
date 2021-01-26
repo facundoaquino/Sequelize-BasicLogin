@@ -25,8 +25,15 @@ cardsContainer.classList.add('cardsContainer', 'd-flex', 'flex-wrap','justify-co
 	})
 }
 
+
+
+/*---------------------- config url enviroment ---------------------*/
+
+const URL_DEVELOPMENT = 'http://localhost:3000/getAll'
+const URL_PRODUCTION = 'https://sequelizeloginposts.herokuapp.com/getAll'
+
 getAllPosts.addEventListener('click', async () => {
-	const posts = await fetch('http://localhost:3000/getAll')
+	const posts = await fetch(URL_PRODUCTION)
 
 	const data = await posts.json()
 
