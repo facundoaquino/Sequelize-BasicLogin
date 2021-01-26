@@ -1,6 +1,6 @@
 # HEROKU DEPLOY
 
-[heroku] -herojy
+- ## [heroku]  
 
 
 ## sql script database
