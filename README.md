@@ -1,3 +1,8 @@
+# HEROKU DEPLOY
+
+[heroku] -herojy
+
+
 ## sql script database
 
 > [database/config/dataBase.sql]
@@ -272,3 +277,5 @@ router.get('/test', async (req, res) => {
 
 
 [database/config/dataBase.sql]:<https://github.com/facundoaquino/Sequelize-BasicLogin/blob/master/database/config/dataBase.sql>
+
+[heroku]:<https://sequelizeloginposts.herokuapp.com/>
