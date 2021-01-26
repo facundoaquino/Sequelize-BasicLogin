@@ -47,9 +47,12 @@ router.post('/login', isLoged, async (req, res) => {
 			req.session.user = { ...user['_previousDataValues'], password: '' }
 
 			res.redirect('/home')
+		}else{
+			res.render('error')
 		}
 	} else {
-		res.send('credenciales invalidas')
+		res.render('error')
+
 	}
 })
 

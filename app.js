@@ -12,24 +12,25 @@ var MySQLStore = require('express-mysql-session')(session);
 const authMiddleware = require('./middlewares/authmiddleware');
 
 
-var options = {
-	host: 'us-cdbr-east-03.cleardb.com',
-	port: 3306,
-	user: 'b13b87e577c859',
-	password: 'e9b67217',
-	database: 'heroku_c4c796f2d40c24a'
-};
+// var options = {
+// 	host: 'us-cdbr-east-03.cleardb.com',
+// 	port: 3306,
+// 	user: 'b13b87e577c859',
+// 	password: 'e9b67217',
+// 	database: 'heroku_c4c796f2d40c24a'
+// };
 
-var sessionStore = new MySQLStore(options);
+// var sessionStore = new MySQLStore(options);
 
 
 //  defined port
 const port = process.env.PORT || 3000
 
 
+console.log(process.env.NODE_ENV);
 app.use(express.static('public'))
-// app.use(session({secret:'TheSecretSession',resave:false,saveUninitialized:true}))
-app.use(session({secret:'TheSecretSession',resave:false,saveUninitialized:true ,store: sessionStore}))
+app.use(session({secret:'TheSecretSession',resave:false,saveUninitialized:true}))
+// app.use(session({secret:'TheSecretSession',resave:false,saveUninitialized:true ,store: sessionStore}))
 app.use(authMiddleware)
 app.use(express.json())
 app.use(express.urlencoded({extended:true}))
